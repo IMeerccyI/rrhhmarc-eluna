@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marcaciones de personal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Marcaciones de personal</h1>
+        <div id="apiIndicator" class="api-indicator" aria-live="polite">
+          <span></span>
+          Verificando API
+        </div>
+      </header>
+
+      <section class="form-panel" aria-labelledby="formTitle">
+        <div class="section-heading">
+          <div>
+            <small id="formMode">Nuevo registro</small>
+            <h2 id="formTitle">Registrar marcación</h2>
+          </div>
+          <button class="button secondary hidden" type="button" id="cancelEdit">Cancelar edición</button>
+        </div>
+
+        <form id="marcacionForm" novalidate>
+          <input type="hidden" id="recordId" />
+
+          <div class="form-grid">
+            <label>
+              Código de empleado
+              <input id="codigo_empleado" maxlength="20" placeholder="EMP001" required />
+            </label>
+            <label>
+              Nombre completo
+              <input id="nombre_empleado" maxlength="120" placeholder="Ana Pérez" required />
+            </label>
+            <label>
+              Fecha
+              <input type="date" id="fecha" required />
+            </label>
+            <label>
+              Ingreso programado
+              <input type="time" id="hora_ingreso_programada" value="08:00" required />
+            </label>
+            <label>
+              Ingreso real
+              <input type="time" id="hora_ingreso_real" />
+            </label>
+            <label>
+              Salida programada
+              <input type="time" id="hora_salida_programada" value="16:00" required />
+            </label>
+            <label>
+              Salida real
+              <input type="time" id="hora_salida_real" />
+            </label>
+            <label class="observation">
+              Observación
+              <input id="observacion" maxlength="500" placeholder="Opcional" />
+            </label>
+          </div>
+
+          <p class="help">El estado se calcula automáticamente.</p>
+          <div id="formErrors" class="message error hidden" role="alert"></div>
+          <button class="button primary" type="submit" id="submitButton">Guardar marcación</button>
+        </form>
+      </section>
+
+      <section class="list-panel" aria-labelledby="listTitle">
+        <div class="section-heading">
+          <h2 id="listTitle">Registros</h2>
+          <strong id="recordCount">0 registros</strong>
+        </div>
+
+        <form class="filters" id="filterForm">
+          <label>
+            Empleado
+            <input id="filterEmpleado" placeholder="Código o nombre" />
+          </label>
+          <label>
+            Fecha
+            <input type="date" id="filterFecha" />
+          </label>
+          <button class="button primary" type="submit">Filtrar</button>
+          <button class="button secondary" type="button" id="clearFilters">Limpiar</button>
+        </form>
+
+        <div id="notice" class="message success hidden" role="status"></div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Empleado</th>
+                <th>Fecha</th>
+                <th>Ingreso</th>
+                <th>Salida</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody"></tbody>
+          </table>
+          <div id="emptyState" class="empty-state">No hay marcaciones para mostrar.</div>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
